@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styles from './PostsContainer.css'
 import { Post, Button } from '../../Components'
-console.log(Post)
 import * as _ from 'lodash'
 
 export default class PostsContainer extends Component {
@@ -14,7 +13,9 @@ export default class PostsContainer extends Component {
         'Lorem Ipsum has been the industry\'s ' +
         'standard dummy text ever since the 1500s, when an unknown printer took a galley',
         comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45
+        votes: 45,
+        author: 'Irfan Baqui',
+        time: '24 hours'
       },
       {
         id: 2,
@@ -22,7 +23,9 @@ export default class PostsContainer extends Component {
         'Lorem Ipsum has been the industry\'s ' +
         'standard dummy text ever since the 1500s, when an unknown printer took a galley',
         comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45
+        votes: 45,
+        author: 'Irfan Baqui',
+        time: '1 day'
       },
       {
         id: 3,
@@ -30,7 +33,9 @@ export default class PostsContainer extends Component {
         'Lorem Ipsum has been the industry\'s ' +
         'standard dummy text ever since the 1500s, when an unknown printer took a galley',
         comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45
+        votes: 45,
+        author: 'Irfan Baqui',
+        time: '4 days'
       },
       {
         id: 4,
@@ -38,7 +43,9 @@ export default class PostsContainer extends Component {
         'Lorem Ipsum has been the industry\'s ' +
         'standard dummy text ever since the 1500s, when an unknown printer took a galley',
         comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45
+        votes: 45,
+        author: 'Irfan Baqui',
+        time: '24 hours'
       }
     ]
   }
