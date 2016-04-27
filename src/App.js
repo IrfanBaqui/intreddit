@@ -6,7 +6,7 @@ import users from './Redux/Modules/users'
 import posts from './Redux/Modules/posts'
 import { Provider } from 'react-redux'
 
-const store = createStore(combineReducers({ users, posts })
+const store = createStore(combineReducers({ users, posts }))
 
 ReactDOM.render(
   <Provider store={store}>
