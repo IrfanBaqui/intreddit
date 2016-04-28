@@ -1,28 +1,51 @@
 import React, { Component, PropTypes } from 'react'
 import {FormInput,Button} from '../../Components'
 import styles from './SignInContainer.css'
+import { connect } from 'react-redux'
+import { authUser, unauthUser } from '../../Redux/Modules/users'
   
 export default class SignInContainer extends Component {    
+  PropTypes: {
+  }
+
   signIn(){
-      var user = document.getElementById("user").value;
-      var password = document.getElementById("password").value;
-      console.log(user + password);
-      if(user=="admin" && password =="admin")
+      var user = document.getElementById("user");
+      var password = document.getElementById("password");
+      if(user.value=="admin" && password.value =="admin")
           {
-              document.getElementById("modal-signin").className = "signnedIn";
-              document.getElementById("modal-signin").style.display = none;
+              this.props.dispatch(authUser('Irfan Baqui'))
+              if (document.getElementById('welcomeText')) {
+                document.getElementById('welcomeText').style.display = "block"
+              }
+              document.getElementById("modal-signin").style.display = "none";
+              
+              user.value = '';
+              password.value ='';
           }
-  }    
+  }   
+ closeModal(event){
+      event.target.parentElement.parentElement.style.display = "none";
+  }
   render() {
     return (
       <div className="modalWrap" id="modal-signin">        
         <div className="signInWrapper">
-            <h2 className="signInTitle">Sign In</h2>
+            <i className="fa fa-times fa-lg close-modal" onClick={this.closeModal.bind(this)}>
+              </i>
+            <h2 className="signInTitle">Log In</h2>
             <FormInput type="text" name="User"/>
             <FormInput type="password" name="Password"/>
-            <Button text="Sign In" onClick={this.signIn.bind(this)} />
+            <Button text="Log In" onClick={this.signIn.bind(this)} />
         </div>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+      id: state.users.id
+  }
+}
+
+export default connect(mapStateToProps)(SignInContainer)

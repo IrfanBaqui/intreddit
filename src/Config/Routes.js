@@ -6,6 +6,7 @@ import { HomeContainer, MainContainer, PostContainer } from '../Components'
 const routes = (  
   <Router history = {browserHistory}>
     <Route path="/" component={MainContainer}>
+      <IndexRoute component={HomeContainer} />
       <Route path="/home" component={HomeContainer} />
       <Route path="/post" component={PostContainer} />
     </Route>

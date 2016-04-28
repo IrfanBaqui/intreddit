@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
-import styles from './Post.css'
-
+import styles from './Post.css'    
 
 export default class Post extends Component {
-
   onChange() {}
-
   render() {
     return (
     <div className="postWrap">    
-      <div className="postContainer">
-        <Voting />
-        <PostText time={this.props.time} author={this.props.author} comments={this.props.comments} text={this.props.text}>
+      <div className="postContainer" id={this.props.dataId}>
+        <Voting votes={this.props.votes} onVote={this.props.onVote} />
+        <PostText id={this.props.key} onClick={this.props.onClick} time={this.props.time} author={this.props.author} comments={this.props.comments} text={this.props.text} comments={this.props.comments}>
           {this.props.children}
         </PostText>
       </div>
@@ -29,9 +26,46 @@ export default class Post extends Component {
 }
 
 class PostText extends Component {
-
   onChange() {}
-
+  
+  getDate(date){
+        var date = new Date(date.toString());
+        var day = date.getDate();
+        var month = date.getMonth();
+        var year = date.getFullYear();
+        var hours = date.getHours();
+        
+        var currentDate = new Date();
+        var cday = currentDate.getDate();
+        var cmonth = currentDate.getMonth();
+        var cyear = currentDate.getFullYear();
+        var chours = currentDate.getHours();
+        
+        if(cyear == year)
+        {
+            if(cmonth == month)
+                {
+                   if(cday == day)
+                       {
+                           if( chours == hours)
+                               {
+                                   return currentDate.getMinutes() - date.getMinutes() + " mins";
+                               }
+                           else
+                               return chours - hours + " hours";
+                       }
+                    else
+                        return cday - day + " days";
+                    
+                }
+            
+               else
+                    return cmonth - month + " months";
+        }
+        else
+                return cyear - year + " years";
+  }        
+    
   render() {
     return (
       <div className="postText">
@@ -44,7 +78,7 @@ class PostText extends Component {
                         </h1>)
             else
                     return(
-                      <a href="/post/#" className="postLink">
+                      <a href="/post" className="postLink" onClick={this.props.onClick}>
                         {this.props.text}
                       </a>
                    )
@@ -52,10 +86,10 @@ class PostText extends Component {
             
         </div>
         <div className="postDetails">
-          {"submitted " + this.props.time + " ago by " + this.props.author + " to /i/general"}
+          {"submitted on " + this.getDate(this.props.time) + " ago by " + this.props.author + " to /i/general"}
         </div>
         <div className="commentsText">
-          {this.props.comments.length + " comments"}
+          {this.props.comments+" comments"}
         </div>
       </div>
     )
@@ -69,14 +103,14 @@ class Voting extends Component {
   render() {
     return (
       <div className="voting">
-        <div className="upvote">
+        <div href="#" className="upvote" onClick={this.props.onVote}>
           <i className="fa fa-angle-up fa-lg">
           </i>
         </div>
         <div className="voteCount">
-          300
+          {this.props.votes}
         </div>
-        <div className="downvote">
+        <div className="downvote" onClick={this.props.onVote}>
           <i className="fa fa-angle-down fa-lg">
           </i>
         </div>

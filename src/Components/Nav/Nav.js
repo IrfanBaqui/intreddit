@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import styles from './Nav.css'
-import { Button } from '../../Components'
+import { Button,SignInContainer } from '../../Components'
 import { connect } from 'react-redux'
 import { authUser, unauthUser } from '../../Redux/Modules/users'
 
@@ -11,10 +11,7 @@ class Nav extends Component {
 
   login() {
     if (!this.props.isAuthed) {
-      this.props.dispatch(authUser('Irfan Baqui'))
-      if (document.getElementById('welcomeText')) {
-        document.getElementById('welcomeText').style.display = "block"
-      }
+      document.getElementById("modal-signin").style.display = "block";
     } else {
       this.props.dispatch(unauthUser())
       var welcomeText = document.getElementById('welcomeText').style.display = "none"
@@ -43,7 +40,7 @@ class Nav extends Component {
           </div>
           <Button text={this.getText()} classes="loginButton" ids="loginButton" onClick={this.login.bind(this)} />
         </div>
-
+        <SignInContainer />
       </div>
     )
   }
@@ -51,8 +48,8 @@ class Nav extends Component {
 
 function mapStateToProps(state) {
   return {
-    isAuthed: state.isAuthed,
-    id: state.id
+    isAuthed: state.users.isAuthed,
+    id: state.users.id
   }
 }
 

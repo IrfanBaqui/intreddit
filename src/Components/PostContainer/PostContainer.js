@@ -1,97 +1,66 @@
 import React, { Component } from 'react'
 import styles from './PostContainer.css'
-import { Post, Button } from '../../Components'
+import { Post,CommentsContainer } from '../../Components'
+import { connect } from 'react-redux'
+import { updateVotes, navigatePost } from '../../Redux/Modules/posts'
 import * as _ from 'lodash'
 
 export default class PostContainer extends Component {
-
-  getData() {
-    return [
-      {
-        id: 1,
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        details:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley'+
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45,
-        author: 'Irfan Baqui',
-        time: '24 hours'
-      },
-      {
-        id: 2,
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        details:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley'+
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45,
-        author: 'Irfan Baqui',
-        time: '1 day'
-      },
-      {
-        id: 3,
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        details:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley'+
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        comments: ['HI', 'NO', 'Just Kidding'],
-        votes: 45,
-        author: 'Irfan Baqui',
-        time: '4 days'
-      },
-      {
-        id: 4,
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        comments: ['HI', 'NO', 'Just Kidding'],
-        details:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley'+
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ' +
-        'Lorem Ipsum has been the industry\'s ' +
-        'standard dummy text ever since the 1500s, when an unknown printer took a galley',
-        votes: 45,
-        author: 'Irfan Baqui',
-        time: '24 hours'
-      }
-    ]
+ PropTypes: {
+    postId: PropTypes.string.isRequired
   }
-
   onChange() {}
-
+  closeModal(event){
+      document.getElementById("postsContainer").style.display = "block";
+      document.getElementById("postDetailsContainer").style.display = "none";
+  }
+    
+  onVote(e){
+      if(!this.props.isAuthed)
+          {
+              alert("You need to login to vote for this post.");
+          }
+      else
+          {
+              var action = "dec";
+              if(e.target.className == "upvote")
+                  action = "inc"
+              this.props.dispatch(updateVotes(findParent(e.target,'postContainer').getAttribute('id')),action)         
+          }
+  } 
+    
   render() {
     return (
-       <div className="postDetailsContainer">
+       <div className="postDetailsContainer" id="postDetailsContainer">
+        <i className="fa fa-times fa-lg close-modal" onClick={this.closeModal.bind(this)}>
+              </i>
         {
-          _.map(_.sortBy(this.getData(),['id']), function(post) {
-            if(post.id == 2)
-            return (
-                <Post key={post.id} text={post.text} time={post.time} author={post.author} comments={post.comments} votes={post.votes}>
-                  {post.details}
+                <Post key={this.props.post.postId} onVote={this.onVote.bind(this)} text={this.props.post.title} time={this.props.post.time} author={this.props.post.author} votes={this.props.post.votes} comments={this.props.post.comments.length}>
+                  {this.props.post.details}
                 </Post>
-                 )
-            else
-                return 
-          })
+                
         }
+    
+        <CommentsContainer/>
       </div>
     )
   }
 }
+
+function findParent(node,className)
+{
+    while(node.parentElement.className != className){
+        node = node.parentElement   
+    }
+    
+    return node.parentElement;
+}
+
+function mapStateToProps(state) {
+  return {
+    post: state.posts.posts[state.posts.currentPost],
+    isAuthed: state.users.isAuthed
+  }
+}
+
+export default connect(mapStateToProps)(PostContainer)

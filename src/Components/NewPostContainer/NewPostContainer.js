@@ -1,18 +1,25 @@
 import React, { Component, PropTypes } from 'react'
 import { FormInput, Button } from '../../Components'
 import styles from './NewPostContainer.css'
+import { connect } from 'react-redux'
+import {addPost} from '../../Redux/Modules/posts'
   
-export default class NewPostContainer extends Component {
-  signIn(){
-      var user = document.getElementById("user").value;
-      var password = document.getElementById("password").value;
-      console.log(user + password);
-      if(user=="admin" && password =="admin")
-          {
-              document.getElementById("modal-signin").className = "signnedIn";
-              document.getElementById("modal-signin").style.display = none;
-          }
+export default class NewPostContainer extends Component {  
+  PropTypes: {
+  }
+    
+  addPost(){
+      var title = document.getElementById("title");
+      var details = document.getElementById("details");
+      var time = Date();
+      this.props.dispatch(addPost(title.value,details.value,time,this.props.id == ""? "Anonymous" : this.props.id));
+      
+      title.value="";
+      details.value="";
+      
+      document.getElementById("modal-createPost").style.display = "none";
   }    
+    
   closeModal(event){
       event.target.parentElement.parentElement.style.display = "none";
   }
@@ -23,12 +30,27 @@ export default class NewPostContainer extends Component {
            <i className="fa fa-times fa-lg close-modal" onClick={this.closeModal.bind(this)}>
               </i>
             <h2 className="newPostTitle">{"Create a new Post"}</h2>
-            <p>{"You are not signned in, this post will be added annonymously."}</p>
+            <div className="author-desc">
+                {
+                    this.props.isAuthed? "You will be posting this as " + this.props.id + ".": "Sign in or Continue to create this post anonymously."
+                }
+            </div>
             <FormInput type="text" name="Title"/>
             <FormInput type="textarea" name="Details"/>
-            <Button text="Submit" />
+            <Button text="Submit" onClick={this.addPost.bind(this)} />
         </div>
       </div>
     )
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    posts: state.posts,
+    isAuthed: state.users.isAuthed,
+    id: state.users.id
+  }
+}
+
+export default connect(mapStateToProps)(NewPostContainer)
