@@ -2,10 +2,8 @@ import ReactDOM from 'react-dom'
 import React, { Component } from 'react'
 import routes from "./Config/Routes"
 import { createStore, combineReducers } from 'redux'
-import users from './Redux/Modules/users'
-import posts from './Redux/Modules/posts'    
-import comments from './Redux/Modules/comments'
 import { Provider } from 'react-redux'
+import { users, posts, comments } from './Redux'
 
 const store = createStore(combineReducers({ users, posts, comments}));
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './HomeContainer.css'
-import { PostsContainer,PostContainer, Button, Ctrls } from '../../Components'
+import { Button } from '../../Components'
+import { PostsContainer, PostContainer, Ctrls } from '../../Containers'
 import * as _ from 'lodash'
 
 export default class HomeContainer extends Component {

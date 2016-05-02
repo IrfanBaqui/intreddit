@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import styles from './Nav.css'
-import { Button,SignInContainer } from '../../Components'
+import { Button } from '../../Components'
+import { SignInContainer } from '../../Containers'
 import { connect } from 'react-redux'
-import { authUser, unauthUser } from '../../Redux/Modules/users'
+import { authUser, unauthUser } from '../../Redux'
 
 class Nav extends Component {
   PropTypes: {

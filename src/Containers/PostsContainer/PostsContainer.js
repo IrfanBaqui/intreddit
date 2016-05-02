@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from './PostsContainer.css'
 import { Post, Button } from '../../Components'
 import { connect } from 'react-redux'
-import { updateVotes, navigatePost } from '../../Redux/Modules/posts'
+import { updateVotes, navigatePost } from '../../Redux'
 import * as _ from 'lodash'
 
 export default class PostsContainer extends Component {

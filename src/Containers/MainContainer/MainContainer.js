@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './MainContainer.css'
-import { Nav } from '../../Components'
+import { Nav } from '../../Containers'
 
 export default class MainContainer extends Component {
 

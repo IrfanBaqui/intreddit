@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Ctrls.css'
-import { Button,NewPostContainer } from '../../Components'  
-
+import { Button } from '../../Components'
+import { NewPostContainer } from '../../Containers'
     
 var isSignnedIn = false;
 

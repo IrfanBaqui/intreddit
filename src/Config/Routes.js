@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Router, browserHistory,Route, hashHistory, IndexRoute } from 'react-router'
-import { HomeContainer, MainContainer, PostContainer } from '../Components'
+import { HomeContainer, MainContainer, PostContainer } from '../Containers'
 
     
 const routes = (  

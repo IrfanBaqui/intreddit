@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { FormInput, Button } from '../../Components'
 import styles from './NewPostContainer.css'
 import { connect } from 'react-redux'
-import {addPost} from '../../Redux/Modules/posts'
+import { addPost } from '../../Redux'
   
 export default class NewPostContainer extends Component {  
   PropTypes: {

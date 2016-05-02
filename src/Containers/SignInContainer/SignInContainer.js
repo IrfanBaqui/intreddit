@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import {FormInput,Button} from '../../Components'
+import { FormInput, Button } from '../../Components'
 import styles from './SignInContainer.css'
 import { connect } from 'react-redux'
-import { authUser, unauthUser } from '../../Redux/Modules/users'
+import { authUser, unauthUser } from '../../Redux'
   
 export default class SignInContainer extends Component {    
   PropTypes: {

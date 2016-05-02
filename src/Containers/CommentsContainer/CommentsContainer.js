@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import styles from './CommentsContainer.css'
 import { FormInput, Button } from '../../Components'
 import { connect } from 'react-redux'
-import { addComment } from '../../Redux/Modules/comments'
-import { addCommentId } from '../../Redux/Modules/posts'
+import { addComment } from '../../Redux'
+import { addCommentId } from '../../Redux'
 import * as _ from 'lodash'
 import* as uuid from 'node-uuid'
 
@@ -88,7 +88,7 @@ export default class CommentsContainer extends Component {
                       {"submitted on " + this.getDate(this.props.comments[commentId].time) + " ago by " + this.props.comments[commentId].author + " to /i/general"}
                     </div>
                    </div>       
-                   )
+               )
             }.bind(this))
         }
       </div>

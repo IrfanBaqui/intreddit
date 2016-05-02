@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import styles from './PostContainer.css'
-import { Post,CommentsContainer } from '../../Components'
+import { Post } from '../../Components'
+import { CommentsContainer } from '../../Containers'
 import { connect } from 'react-redux'
-import { updateVotes, navigatePost } from '../../Redux/Modules/posts'
+import { updateVotes, navigatePost } from '../../Redux'
 import * as _ from 'lodash'
 
 export default class PostContainer extends Component {
